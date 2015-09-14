@@ -34,7 +34,8 @@
 			
 			var Experiment = Parse.Object.extend("Experiment");
 			var query = new Parse.Query(Experiment);
-			query.ascending("createdAt");
+			query.equalTo("author", Parse.User.current());
+			query.descending("createdAt");
 			query.find({
 				success: function(experiments) {
 					if (experiments.length > 0) {
@@ -45,7 +46,7 @@
 						}
 						listHtml += "</ul>"
 					} else {
-						listHtml += "<p>No experiments yet</p>"
+						listHtml += "<p style='color:gray'>No experiments yet</p>"
 					}
 					document.getElementById('experimentsList').innerHTML = listHtml;
 				},
