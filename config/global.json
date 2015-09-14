@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "latest"
+  },
+  "applications": {
+    "BRLSI": {
+      "applicationId": "7p9hrd9VKFWIjdQH9jwEEK4jO1CBlRaJxWryHIup",
+      "masterKey": "GrzlzEameYc9ao2a4ch8ZozqjV3aSlDhTJx3VGrz"
+    },
+    "_default": {
+      "link": "BRLSI"
+    }
+  }
+}
