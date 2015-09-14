@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>BRLSI - Past experiments</title>
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link href="css/jumbotron-narrow.css" rel="stylesheet">
+
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="//www.parsecdn.com/js/parse-1.6.0.min.js"></script>
+		<script>
+			Parse.initialize("7p9hrd9VKFWIjdQH9jwEEK4jO1CBlRaJxWryHIup", "vcyz6fmQNjpiTebwnNbJoYiWJDN3tF9lweKakdee");
+			
+			var currentUser = Parse.User.current();
+			if (!currentUser) {
+				window.location.replace('index.html');
+			}
+		</script>
+	</head>
+  
+	
+	<body>
+		<div class="container">
+			<div class="jumbotron">
+				<a href="#" onclick="logout();return false;" class="pull-right" style="font-family: monospace">Log out</a>
+				<h1>Past experiments</h1>
+				<div id="experimentsList"></div>
+				
+				<ul></ul>
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var listHtml = "<ul>";
+			
+			var Experiment = Parse.Object.extend("Experiment");
+			var query = new Parse.Query(Experiment);
+			query.ascending("createdAt");
+			query.find({
+				success: function(experiments) {
+					if (experiments.length > 0) {
+						for (var i = 0; i < experiments.length; i++) {
+							listHtml += "<li><a href='#'>" +
+											experiments[i].get("title") +
+										"</a></li>";
+						}
+						listHtml += "</ul>"
+					} else {
+						listHtml += "<p>No experiments yet</p>"
+					}
+					document.getElementById('experimentsList').innerHTML = listHtml;
+				},
+				error: function(error) {
+				}
+			});
+			
+			function logout() {
+				Parse.User.logOut();
+				window.location.replace('index.html');
+			}
+		</script>
+	</body>
+
+</html>
+
+		
