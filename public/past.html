@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>BRLSI - Past experiments</title>
+		<title>Past experiments - BRLSI</title>
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link href="css/jumbotron-narrow.css" rel="stylesheet">
@@ -26,8 +26,6 @@
 				<a href="#" onclick="logout();return false;" class="pull-right" style="font-family: monospace">Log out</a>
 				<h1>Past experiments</h1>
 				<div id="experimentsList"></div>
-				
-				<ul></ul>
 			</div>
 		</div>
 		
@@ -41,7 +39,7 @@
 				success: function(experiments) {
 					if (experiments.length > 0) {
 						for (var i = 0; i < experiments.length; i++) {
-							listHtml += "<li><a href='#'>" +
+							listHtml += "<li><a href='details.html?id=" + experiments[i].id + "'>" +
 											experiments[i].get("title") +
 										"</a></li>";
 						}

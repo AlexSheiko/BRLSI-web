@@ -5,6 +5,7 @@
 		<title>BRLSI</title>
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link href="css/jumbotron-narrow.css" rel="stylesheet">
 
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.6.0.min.js"></script>
@@ -23,6 +24,7 @@
 		<div class="container">
 			<div class="jumbotron">
 		  
+				<br><br><br>
 				<form onsubmit="return login(event);">
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3">
@@ -30,7 +32,7 @@
 							<input type="password" id="inputPassword" class="form-control input-lg" placeholder="Password" style="height: 42px; font-size: 20px" required>
 						</div>
 					</div><br><br>
-					<button type="submit" class="btn btn-lg btn-success">Login</button>
+					<button type="submit" class="btn btn-lg btn-primary center-block">Login</button>
 				</form>
 		
 			</div>
@@ -43,7 +45,7 @@
 				var password = document.getElementById("inputPassword").value;
 				Parse.User.logIn(username, password, {
 				  success: function(user) {
-					window.location.replace('list.html');
+					window.location.replace('past.html');
 				  },
 				  error: function(user, error) {
 					alert("Failed to login: " + error.message);
