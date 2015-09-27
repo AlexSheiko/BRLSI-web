@@ -10,7 +10,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<script src="//www.parsecdn.com/js/parse-1.6.0.min.js"></script>
 		<script>
-			Parse.initialize("7p9hrd9VKFWIjdQH9jwEEK4jO1CBlRaJxWryHIup", "vcyz6fmQNjpiTebwnNbJoYiWJDN3tF9lweKakdee");
+			Parse.initialize("WKUcjYvVqvAJVon2XhmbfnzaQljT4H5Bp0m4mFJT", "nZLf8PgOCdM2MSUTPQQmQpvjNG1cLKhckGS5OaN9");
 			
 			var currentUser = Parse.User.current();
 			if (!currentUser) {
@@ -22,11 +22,9 @@
 	
 	<body>
 		<div class="container">
-			<div class="jumbotron">
-				<a href="#" onclick="logout();return false;" class="pull-right" style="font-family: monospace">Log out</a>
-				<h1>Past experiments</h1>
-				<div id="experimentsList"></div>
-			</div>
+			<a href="#" onclick="logout();return false;" class="pull-right" style="font-family: monospace">Log out</a>
+			<h1 style="margin-top:80px;">Past experiments</h1>
+			<div id="experimentsList"></div>
 		</div>
 		
 		<script type="text/javascript">
@@ -34,25 +32,49 @@
 			
 			var Experiment = Parse.Object.extend("Experiment");
 			var query = new Parse.Query(Experiment);
-			query.equalTo("author", Parse.User.current());
-			query.descending("createdAt");
-			query.find({
-				success: function(experiments) {
-					if (experiments.length > 0) {
-						for (var i = 0; i < experiments.length; i++) {
-							listHtml += "<li><a href='details.html?id=" + experiments[i].id + "'>" +
-											experiments[i].get("title") +
-										"</a></li>";
-						}
-						listHtml += "</ul>"
-					} else {
-						listHtml += "<p style='color:gray'>No experiments yet</p>"
-					}
-					document.getElementById('experimentsList').innerHTML = listHtml;
-				},
-				error: function(error) {
+			
+			var user = Parse.User.current();
+			user.fetch().then(function(fetchedUser){
+				var name = fetchedUser.getUsername();
+				if (name === "admin") {
+					var studentId = location.search.split('id=')[1];
+					new Parse.Query(Parse.User).get(studentId, {
+					  success: function(student) {
+						query.equalTo("author", student);
+						runQuery(query);
+					  },
+					  error: function(student, error) {
+						alert(error.message);
+					  }
+					});
+				} else {
+					query.equalTo("author", Parse.User.current());
+					runQuery(query);
 				}
+			}, function(error){
+				alert(error.message);
 			});
+			
+			function runQuery(query) {
+				query.descending("createdAt");
+				query.find({
+					success: function(experiments) {
+						if (experiments.length > 0) {
+							for (var i = 0; i < experiments.length; i++) {
+								listHtml += "<li><a href='details.html?id=" + experiments[i].id + "'>" +
+												experiments[i].get("title") +
+											"</a></li>";
+							}
+							listHtml += "</ul>"
+						} else {
+							listHtml += "<p style='color:gray; font-size:20px; margin-top: 20px'>No experiments yet</p>"
+						}
+						document.getElementById('experimentsList').innerHTML = listHtml;
+					},
+					error: function(error) {
+					}
+				});
+			}
 			
 			function logout() {
 				Parse.User.logOut();

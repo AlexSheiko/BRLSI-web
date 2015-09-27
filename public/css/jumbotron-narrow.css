@@ -4,6 +4,11 @@ body {
   padding-bottom: 20px;
 }
 
+.container-wide {
+  margin-right: 100px;
+  margin-left: 100px;
+}
+
 .jumbotron h1 {
 	font-size: 30px;
 }
@@ -13,6 +18,7 @@ li {
     height: auto;
 }
 ul {
+	padding-left: 6px;
     list-style-type: none;
 }
 a {
@@ -121,7 +127,7 @@ a {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: auto;
   }
 }
 .container-narrow > hr {

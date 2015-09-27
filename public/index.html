@@ -10,11 +10,20 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.6.0.min.js"></script>
 		<script>
-			Parse.initialize("7p9hrd9VKFWIjdQH9jwEEK4jO1CBlRaJxWryHIup", "vcyz6fmQNjpiTebwnNbJoYiWJDN3tF9lweKakdee");
+			Parse.initialize("WKUcjYvVqvAJVon2XhmbfnzaQljT4H5Bp0m4mFJT", "nZLf8PgOCdM2MSUTPQQmQpvjNG1cLKhckGS5OaN9");
 			
-			var currentUser = Parse.User.current();
-			if (currentUser) {
-				window.location.replace('past.html');
+			var user = Parse.User.current();
+			if (user) {
+				user.fetch().then(function(fetchedUser){
+					var name = fetchedUser.getUsername();
+					if (name === "admin") {
+						window.location.replace('users.html');
+					} else {
+						window.location.replace('past.html');
+					}
+				}, function(error){
+					alert(error.get("message"));
+				});
 			}
 		</script>
 	</head>
@@ -22,21 +31,19 @@
 	
 	<body>
 		<div class="container">
-			<div class="jumbotron">
 				
-				<img src="img/logo.png" style="width:100px;height:100px" class="center-block"/>
-				<br><br><br>
-				<form onsubmit="return login(event);">
-					<div class="row">
-						<div class="col-md-6 col-md-offset-3">
-							<input type="text" id="inputUsername" class="form-control input-lg" placeholder="Username" style="margin-bottom: 15px; height: 42px; font-size: 20px" autofocus>
-							<input type="password" id="inputPassword" class="form-control input-lg" placeholder="Password" style="height: 42px; font-size: 20px" required>
-						</div>
-					</div><br><br>
-					<button type="submit" class="btn btn-lg btn-primary center-block">Login</button>
-				</form>
+			<img src="img/logo.png" style="width:100px;height:100px;margin-top:80px" class="center-block"/>
+			<br><br><br>
+			<form onsubmit="return login(event);">
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<input type="text" id="inputUsername" class="form-control input-lg center-block" placeholder="Username" style="margin-bottom: 15px; height: 42px; font-size: 20px; width: 350px" autofocus>
+						<input type="password" id="inputPassword" class="form-control input-lg center-block" placeholder="Password" style="height: 42px; font-size: 20px; width: 350px" required>
+					</div>
+				</div><br><br>
+				<button type="submit" class="btn btn-lg btn-primary center-block">Login</button>
+			</form>
 		
-			</div>
 		</div>
 		
 		<script type="text/javascript">
@@ -46,10 +53,15 @@
 				var password = document.getElementById("inputPassword").value;
 				Parse.User.logIn(username, password, {
 				  success: function(user) {
-					window.location.replace('past.html');
+					var user = Parse.User.current();
+					if (user.getUsername() === "admin") {
+						window.location.replace('users.html');
+					} else {
+						window.location.replace('past.html');
+					}
 				  },
 				  error: function(user, error) {
-					alert("Failed to login: " + error.message);
+					alert("Failed to login. Check your credencials");
 				  }
 				});
 			}

@@ -7,13 +7,22 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link href="css/jumbotron-narrow.css" rel="stylesheet">
 		<style>
-			img {width:300px;height:300px}
+			p {
+				font-size:20px
+			}
+			img {
+				width:300px;
+				height:300px;
+				-ms-transform: rotate(90deg); /* IE 9 */
+				-webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+				transform: rotate(90deg);
+			}
 		</style>
 
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<script src="//www.parsecdn.com/js/parse-1.6.0.min.js"></script>
 		<script>
-			Parse.initialize("7p9hrd9VKFWIjdQH9jwEEK4jO1CBlRaJxWryHIup", "vcyz6fmQNjpiTebwnNbJoYiWJDN3tF9lweKakdee");
+			Parse.initialize("WKUcjYvVqvAJVon2XhmbfnzaQljT4H5Bp0m4mFJT", "nZLf8PgOCdM2MSUTPQQmQpvjNG1cLKhckGS5OaN9");
 			
 			var currentUser = Parse.User.current();
 			if (!currentUser) {
@@ -27,82 +36,88 @@
 				success: function(experiment) {
 					var containerHtml = "";
 					if (experiment.get("name")) {
-						containerHtml += "<h2>Name</h2>" + 
+						containerHtml += "<h1>Name</h1>" + 
 										 "<p>" + experiment.get("name") + "</p><br>";
 					}
 					if (experiment.get("title")) {
-						containerHtml += "<h2>Title</h2>" + 
+						containerHtml += "<h1>Title</h1>" + 
 										 "<p>" + experiment.get("title") + "</p><br>";
 					}
 					if (experiment.get("date")) {
-						containerHtml += "<h2>Date</h2>" + 
+						containerHtml += "<h1>Date</h1>" + 
 										 "<p>" + experiment.get("date") + "</p><br>";
 					}
 					if (experiment.get("time")) {
-						containerHtml += "<h2>Time</h2>" + 
+						containerHtml += "<h1>Time</h1>" + 
 										 "<p>" + experiment.get("time") + "</p><br>";
 					}
 					if (experiment.get("location")) {
-						containerHtml += "<h2>Location</h2>" + 
+						containerHtml += "<h1>Location</h1>" + 
 										 "<p>" + experiment.get("location") + "</p><br>";
 					}
 					if (experiment.get("conditions")) {
-						containerHtml += "<h2>Conditions</h2>" + 
+						containerHtml += "<h1>Conditions</h1>" + 
 										 "<p>" + experiment.get("conditions") + "</p>";
 						if (experiment.get("conditionsPhoto") != null) {
-							containerHtml += "<img src='" + 
-											 experiment.get("conditionsPhoto").url() +
-											 "'/>";
+							var imageUrl = experiment.get("conditionsPhoto").url();
+							containerHtml += "<a href='" + imageUrl + "'>";
+							containerHtml += "<img src='" + imageUrl + "'/>";
+							containerHtml += "</a>";
 						}
 						containerHtml += "<br>";
 					}
 					if (experiment.get("equipment")) {
-						containerHtml += "<h2>Equipment</h2>" + 
+						containerHtml += "<h1>Equipment</h1>" + 
 										 "<p>" + experiment.get("equipment") + "</p>";
 						if (experiment.get("equipmentPhoto") != null) {
-							containerHtml += "<img src='" + 
-											 experiment.get("equipmentPhoto").url() +
-											 "'/>";
+							var imageUrl = experiment.get("equipmentPhoto").url();
+							containerHtml += "<a href='" + imageUrl + "'>";
+							containerHtml += "<img src='" + imageUrl + "'/>";
+							containerHtml += "</a>";
 						}
 						containerHtml += "<br>";
 					}
 					if (experiment.get("action")) {
-						containerHtml += "<h2>Action</h2>" + 
+						containerHtml += "<h1>Action</h1>" + 
 										 "<p>" + experiment.get("action") + "</p>";
 						if (experiment.get("actionPhoto") != null) {
-							containerHtml += "<img src='" + 
-											 experiment.get("actionPhoto").url() +
-											 "'/>";
+							var imageUrl = experiment.get("actionPhoto").url();
+							containerHtml += "<a href='" + imageUrl + "'>";
+							containerHtml += "<img src='" + imageUrl + "'/>";
+							containerHtml += "</a>";
 						}
 						containerHtml += "<br>";
 					}
 					if (experiment.get("outcome")) {
-						containerHtml += "<h2>Outcome</h2>" + 
+						containerHtml += "<h1>Outcome</h1>" + 
 										 "<p>" + experiment.get("outcome") + "</p>";
 						if (experiment.get("outcomePhoto") != null) {
-							containerHtml += "<img src='" + 
-											 experiment.get("outcomePhoto").url() +
-											 "'/>";
+							var imageUrl = experiment.get("outcomePhoto").url();
+							containerHtml += "<a href='" + imageUrl + "'>";
+							containerHtml += "<img src='" + imageUrl + "'/>";
+							containerHtml += "</a>";
 						}
 						containerHtml += "<br>";
 					}
 					if (experiment.get("whatHappened")) {
-						containerHtml += "<h2>What happened</h2>" + 
+						containerHtml += "<h1>What happened</h1>" + 
 										 "<p>" + experiment.get("whatHappened") + "</p>";
 						if (experiment.get("whatHappenedPhoto") != null) {
-							containerHtml += "<img src='" + 
-											 experiment.get("whatHappenedPhoto").url() +
-											 "'/>";
+							var imageUrl = experiment.get("whatHappenedPhoto").url();
+							containerHtml += "<a href='" + imageUrl + "'>";
+							containerHtml += "<img src='" + imageUrl + "'/>";
+							containerHtml += "</a>";
 						}
 						containerHtml += "<br>";
 					}
 					if (experiment.get("whyDidHappen")) {
-						containerHtml += "<h2>Why did it happen</h2>" + 
+						containerHtml += "<h1>Why did it happen</h1>" + 
 										 "<p>" + experiment.get("whyDidHappen") + "</p>";
 						if (experiment.get("whyDidHappenPhoto") != null) {
-							containerHtml += "<img src='" + 
-											 experiment.get("whyDidHappenPhoto").url() +
-											 "'/>";
+							var imageUrl = experiment.get("whyDidHappenPhoto").url();
+							containerHtml += "<a href='" + imageUrl + "'>";
+							containerHtml += "<img src='" + imageUrl + "'/>";
+							containerHtml += "</a>";
 						}
 						containerHtml += "<br>";
 					}
@@ -110,9 +125,10 @@
 						containerHtml += "<h2>How to use this info</h2>" + 
 										 "<p>" + experiment.get("howToUse") + "</p>";
 						if (experiment.get("howToUsePhoto") != null) {
-							containerHtml += "<img src='" + 
-											 experiment.get("Photo").url() +
-											 "'/>";
+							var imageUrl = experiment.get("howToUsePhoto").url();
+							containerHtml += "<a href='" + imageUrl + "'>";
+							containerHtml += "<img src='" + imageUrl + "'/>";
+							containerHtml += "</a>";
 						}
 						containerHtml += "<br>";
 					}
@@ -129,10 +145,8 @@
 	
 	<body>
 		<div class="container">
-			<div class="jumbotron">
-				<a href="#" onclick="logout();return false;" class="pull-right" style="font-family: monospace">Log out</a>
-				<div id="container"></div>
-			</div>
+			<a href="#" onclick="logout();return false;" class="pull-right" style="font-family: monospace">Log out</a>
+			<div id="container" style="margin-top:80px;"></div>
 		</div>
 		
 		<script type="text/javascript">
