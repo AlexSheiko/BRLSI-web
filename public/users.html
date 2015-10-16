@@ -38,7 +38,7 @@
 					if (users.length > 0) {
 						for (var i = 0; i < users.length; i++) {
 							listHtml += "<li><a href='past.html?id=" + users[i].id + "'>" +
-											users[i].get("name") +
+											users[i].getUsername() +
 										"</a></li>";
 						}
 						listHtml += "</ul>"
